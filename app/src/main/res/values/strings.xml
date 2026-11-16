@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Fitness Tracker</string>
+    <string name="auth_login">Log in</string>
+    <string name="auth_register">Register</string>
+    <string name="auth_create_account">Create an account</string>
+    <string name="auth_back_to_login">Back to login</string>
+    <string name="auth_username">Username</string>
+    <string name="auth_identifier">Username or email</string>
+    <string name="auth_email">Email</string>
+    <string name="auth_password">Password</string>
+    <string name="auth_invalid_username">Use 3–24 letters, numbers, or underscores for your username.</string>
+    <string name="auth_invalid_email">Enter a valid email address.</string>
+    <string name="auth_password_length">Use 8–128 characters for your password.</string>
+    <string name="auth_missing_credentials">Enter your username or email and password.</string>
+    <string name="auth_invalid_credentials">The username, email, or password is incorrect.</string>
+    <string name="auth_duplicate_account">That username or email is already registered.</string>
+    <string name="auth_registered">Account created. Log in to continue.</string>
+    <string name="auth_unavailable">Could not access your account. Try again.</string>
+    <string name="auth_welcome">Welcome, %1$s</string>
+    <string name="auth_sign_out">Sign out</string>
+</resources>
