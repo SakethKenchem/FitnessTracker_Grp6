@@ -80,7 +80,8 @@ class AccountViewModel(private val accountRepository: AccountRepository) : ViewM
                 }
             } catch (cancelled: CancellationException) {
                 throw cancelled
-            } catch (_: Exception) {
+            } catch (e: Exception) {
+                android.util.Log.e("AccountViewModel", "Authentication error", e)
                 currentState.copy(feedback = AccountFeedback.ACCOUNT_UNAVAILABLE)
             }
         }

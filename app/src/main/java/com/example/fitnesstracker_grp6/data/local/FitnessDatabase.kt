@@ -7,4 +7,3 @@ import androidx.room.RoomDatabase
 abstract class FitnessDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 }
-

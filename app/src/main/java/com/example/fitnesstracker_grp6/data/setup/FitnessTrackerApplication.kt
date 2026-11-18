@@ -7,7 +7,10 @@ import com.example.fitnesstracker_grp6.data.repository.AccountRepository
 
 class FitnessTrackerApplication : Application() {
     private val database by lazy {
-        Room.databaseBuilder(this, FitnessDatabase::class.java, "fitness.db").build()
+        Room.databaseBuilder(this, FitnessDatabase::class.java, "fitness.db")
+            .fallbackToDestructiveMigration(true)
+            .fallbackToDestructiveMigrationOnDowngrade(true)
+            .build()
     }
 
     val accountRepository by lazy { AccountRepository(database.userDao()) }

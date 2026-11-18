@@ -1,5 +1,6 @@
 package com.example.fitnesstracker_grp6.ui.account
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -16,6 +17,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.fitnesstracker_grp6.R
 import com.example.fitnesstracker_grp6.data.setup.FitnessTrackerApplication
 import com.example.fitnesstracker_grp6.databinding.ActivityAccountBinding
+import com.example.fitnesstracker_grp6.ui.dashboard.DashboardActivity
 import kotlinx.coroutines.launch
 
 class AccountActivity : AppCompatActivity() {
@@ -60,6 +62,18 @@ class AccountActivity : AppCompatActivity() {
     }
 
     private fun render(state: AccountScreenState) = with(binding) {
+        val account = state.signedInAccount
+        if (account != null) {
+            val intent = Intent(this@AccountActivity, DashboardActivity::class.java).apply {
+                putExtra(DashboardActivity.EXTRA_USER_ID, account.id)
+                putExtra(DashboardActivity.EXTRA_USERNAME, account.username)
+                putExtra(DashboardActivity.EXTRA_EMAIL, account.email)
+            }
+            startActivity(intent)
+            finish()
+            return@with
+        }
+
         val showRegistration = state.showRegistration
         val formChanged = wasShowingRegistration?.let { it != showRegistration } ?: false
         val isSignedIn = state.signedInAccount != null
@@ -71,9 +85,6 @@ class AccountActivity : AppCompatActivity() {
         wasShowingRegistration = showRegistration
         accountForm.isVisible = !isSignedIn
         signedInPanel.isVisible = isSignedIn
-//        if (state.signedInAccount != null) {
-//            welcomeText.text = getString(R.string.auth_welcome, state.signedInAccount.username)
-//        }
         val submitLabel = if (showRegistration) R.string.auth_register else R.string.auth_login
         val switchFormLabel = if (showRegistration) R.string.auth_back_to_login else R.string.auth_create_account
         val usernameHint = if (showRegistration) R.string.auth_username else R.string.auth_identifier

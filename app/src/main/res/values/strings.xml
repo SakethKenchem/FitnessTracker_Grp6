@@ -18,4 +18,53 @@
     <string name="auth_unavailable">Could not access your account. Try again.</string>
     <string name="auth_welcome">Welcome, %1$s</string>
     <string name="auth_sign_out">Sign out</string>
+
+    <!-- Dashboard Strings -->
+    <string name="dashboard_title">Dashboard</string>
+    <string name="dashboard_greeting">Hello, %1$s! 👋</string>
+    <string name="dashboard_subtitle">Welcome to your Fitness Hub</string>
+    <string name="dashboard_modules_title">Fitness Modules</string>
+    <string name="dashboard_modules_desc">Select a module to view your progress</string>
+
+    <!-- Module: Step Tracking -->
+    <string name="module_steps_title">Step Tracker</string>
+    <string name="module_steps_desc">Track your daily walking steps, distance covered, and active cadence.</string>
+    <string name="module_steps_btn">Open Step Tracker</string>
+    <string name="module_steps_toast">Step Tracking module will open here.</string>
+
+    <!-- Module: Workout Tracking -->
+    <string name="module_workout_title">Workout Tracker</string>
+    <string name="module_workout_desc">Log your gym workouts, cardio sessions, duration, and sets.</string>
+    <string name="module_workout_btn">Open Workout Tracker</string>
+    <string name="module_workout_toast">Workout Tracking module will open here.</string>
+
+    <!-- Module: Meal Tracking -->
+    <string name="module_meal_title">Meal &amp; Nutrition</string>
+    <string name="module_meal_desc">Log daily meals, track calorie intake, and monitor macros.</string>
+    <string name="module_meal_btn">Open Meal Tracker</string>
+    <string name="module_meal_toast">Meal Tracking module will open here.</string>
+
+    <!-- Quick Tools / Widgets on Dashboard -->
+    <string name="dashboard_quick_tools">Quick Health Tools</string>
+    <string name="dashboard_water">Water Tracker</string>
+    <string name="dashboard_water_val">%1$d / %2$d ml</string>
+    <string name="dashboard_water_add">+250 ml</string>
+    <string name="dashboard_water_added">Added 250ml of water! 💧</string>
+    <string name="dashboard_bmi_calculator">BMI Calculator</string>
+    <string name="dashboard_health_tip_title">Daily Health Tip</string>
+    <string name="dashboard_health_tip">Drinking water before meals aids digestion and keeps you energized during workouts!</string>
+
+    <string name="dashboard_sign_out_confirm">Are you sure you want to sign out?</string>
+    <string name="dashboard_confirm">Yes, Sign Out</string>
+    <string name="dashboard_cancel">Cancel</string>
+
+    <!-- BMI Calculator Dialog -->
+    <string name="dialog_bmi_title">BMI Calculator</string>
+    <string name="hint_height_cm">Height (cm)</string>
+    <string name="hint_weight_kg">Weight (kg)</string>
+    <string name="btn_calculate_bmi">Calculate BMI</string>
+    <string name="bmi_underweight">Underweight</string>
+    <string name="bmi_normal">Normal Weight</string>
+    <string name="bmi_overweight">Overweight</string>
+    <string name="bmi_obese">Obese</string>
 </resources>

@@ -2,4 +2,37 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Theme Colors -->
+    <color name="fitness_primary">#10B981</color>
+    <color name="fitness_primary_dark">#059669</color>
+    <color name="fitness_primary_container">#D1FAE5</color>
+    <color name="fitness_background">#F8FAFC</color>
+    <color name="fitness_surface">#FFFFFF</color>
+
+    <!-- Metric Accents -->
+    <color name="metric_steps">#FF7043</color>
+    <color name="metric_steps_bg">#FFF3E0</color>
+    <color name="metric_calories">#EF4444</color>
+    <color name="metric_calories_bg">#FEE2E2</color>
+    <color name="metric_water">#0EA5E9</color>
+    <color name="metric_water_bg">#E0F2FE</color>
+    <color name="metric_workout">#8B5CF6</color>
+    <color name="metric_workout_bg">#EDE9FE</color>
+    <color name="metric_sleep">#6366F1</color>
+    <color name="metric_sleep_bg">#EEF2FF</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#0F172A</color>
+    <color name="text_secondary">#475569</color>
+    <color name="text_muted">#94A3B8</color>
+    <color name="divider_line">#E2E8F0</color>
+
+    <!-- Workout Type Colors -->
+    <color name="type_running">#FF7043</color>
+    <color name="type_gym">#8B5CF6</color>
+    <color name="type_cycling">#10B981</color>
+    <color name="type_yoga">#EC4899</color>
+    <color name="type_swimming">#0EA5E9</color>
+    <color name="type_walking">#F59E0B</color>
 </resources>
