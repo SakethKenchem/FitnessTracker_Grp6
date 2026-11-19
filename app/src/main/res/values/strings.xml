@@ -67,4 +67,26 @@
     <string name="bmi_normal">Normal Weight</string>
     <string name="bmi_overweight">Overweight</string>
     <string name="bmi_obese">Obese</string>
+
+    <!-- Workout Tracker Feature Strings -->
+    <string name="workout_tracker_title">Workout Tracker</string>
+    <string name="workout_tracker_subtitle">Log and track your training sessions</string>
+    <string name="workout_stat_sessions">Sessions</string>
+    <string name="workout_stat_duration">Total Time</string>
+    <string name="workout_stat_calories">Calories</string>
+    <string name="workout_duration_min">%1$d mins</string>
+    <string name="workout_calories_kcal">%1$d kcal</string>
+    <string name="workout_history_title">Workout History</string>
+    <string name="workout_empty_state">No workouts logged yet!\nTap the + button to add your first workout.</string>
+    <string name="workout_add_title">Log New Workout</string>
+    <string name="workout_type_label">Workout Type</string>
+    <string name="workout_duration_hint">Duration (minutes)</string>
+    <string name="workout_calories_hint">Calories burned (kcal)</string>
+    <string name="workout_notes_hint">Notes / Exercises (optional)</string>
+    <string name="workout_btn_save">Save Workout</string>
+    <string name="workout_delete_confirm_title">Delete Workout</string>
+    <string name="workout_delete_confirm_msg">Are you sure you want to delete this workout entry?</string>
+    <string name="workout_invalid_inputs">Please enter valid workout duration and calories.</string>
+    <string name="workout_added_toast">Workout logged successfully!</string>
+    <string name="workout_deleted_toast">Workout deleted.</string>
 </resources>
