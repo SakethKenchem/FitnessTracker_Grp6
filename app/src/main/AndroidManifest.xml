@@ -35,6 +35,11 @@
         <activity
             android:name=".ui.meal.MealEditActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".ui.workout.WorkoutTrackerActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.example.fitnesstracker_grp6.data.local.FitnessDatabase
 import com.example.fitnesstracker_grp6.data.repository.AccountRepository
 import com.example.fitnesstracker_grp6.data.local.MealRepository
+import com.example.fitnesstracker_grp6.data.repository.WorkoutRepository
 
 class FitnessTrackerApplication : Application() {
     private val database by lazy {
@@ -16,4 +17,5 @@ class FitnessTrackerApplication : Application() {
 
     val accountRepository by lazy { AccountRepository(database.userDao()) }
     val mealRepository by lazy { MealRepository(database.mealDao()) }
+    val workoutRepository by lazy { WorkoutRepository(database.workoutDao()) }
 }

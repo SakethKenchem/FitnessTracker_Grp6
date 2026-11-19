@@ -18,6 +18,7 @@ import com.example.fitnesstracker_grp6.databinding.ActivityDashboardBinding
 import com.example.fitnesstracker_grp6.databinding.DialogBmiCalculatorBinding
 import com.example.fitnesstracker_grp6.ui.account.AccountActivity
 import com.example.fitnesstracker_grp6.ui.meal.MealListActivity
+import com.example.fitnesstracker_grp6.ui.workout.WorkoutTrackerActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -28,6 +29,7 @@ class DashboardActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDashboardBinding
     private val viewModel: DashboardViewModel by viewModels()
+    private var userId: Long = -1L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +43,7 @@ class DashboardActivity : AppCompatActivity() {
             insets
         }
 
-        val userId = intent.getLongExtra(EXTRA_USER_ID, -1L)
+        userId = intent.getLongExtra(EXTRA_USER_ID, -1L)
         val username = intent.getStringExtra(EXTRA_USERNAME).orEmpty().ifEmpty { "Athlete" }
         val email = intent.getStringExtra(EXTRA_EMAIL).orEmpty()
 
@@ -69,11 +71,12 @@ class DashboardActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.module_steps_toast, Toast.LENGTH_SHORT).show()
         }
 
-        // Workout Tracking Module (Teammate's section)
+        // Workout Tracking Module
         binding.btnOpenWorkout.setOnClickListener {
-            // Once your teammate creates WorkoutTrackerActivity, replace with:
-            // startActivity(Intent(this, WorkoutTrackerActivity::class.java))
-            Toast.makeText(this, R.string.module_workout_toast, Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, WorkoutTrackerActivity::class.java).apply {
+                putExtra(WorkoutTrackerActivity.EXTRA_USER_ID, userId)
+            }
+            startActivity(intent)
         }
 
         // Meal Tracking Module (Teammate's section)
