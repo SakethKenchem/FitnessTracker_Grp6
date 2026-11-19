@@ -37,6 +37,11 @@
     <string name="module_steps_category">Cardio · All Levels</string>
     <string name="module_steps_stat">10,000 steps</string>
     <string name="module_steps_toast">Opening Step Tracking module…</string>
+    <string name="module_steps_invalid">Enter a positive number of steps.</string>
+    <string name="module_steps_total">Total today: %1$d steps</string>
+    <string name="module_steps_back">← Back</string>
+    <string name="module_steps_input">Steps to add</string>
+    <string name="module_steps_btn">Add Steps</string>
 
     <!-- Module 2: Workout Tracking -->
     <string name="module_workout_title">Strength: Total Body Tone</string>
