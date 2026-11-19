@@ -11,12 +11,15 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.fitnesstracker_grp6.R
 import com.example.fitnesstracker_grp6.databinding.ActivityDashboardBinding
 import com.example.fitnesstracker_grp6.ui.account.AccountActivity
+import com.example.fitnesstracker_grp6.ui.steps.StepTrackerActivity
+import com.example.fitnesstracker_grp6.ui.workout.WorkoutTrackerActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class DashboardActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDashboardBinding
     private val viewModel: DashboardViewModel by viewModels()
+    private var userId: Long = -1L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +34,7 @@ class DashboardActivity : AppCompatActivity() {
             insets
         }
 
-        val userId = intent.getLongExtra(EXTRA_USER_ID, -1L)
+        userId = intent.getLongExtra(EXTRA_USER_ID, -1L)
         val username = intent.getStringExtra(EXTRA_USERNAME).orEmpty().ifEmpty { "Athlete" }
         val email = intent.getStringExtra(EXTRA_EMAIL).orEmpty()
 
@@ -43,7 +46,6 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun setupUI(username: String) {
-        // User initial (e.g., "AS" or "J")
         val initials = username.trim().split(" ")
             .mapNotNull { it.firstOrNull()?.uppercase() }
             .take(2)
@@ -65,18 +67,20 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun setupModuleNavigation() {
-        // Step Tracking Module (Teammate's section)
+        // Step Tracking Module (Saketh's section)
         binding.cardStepTracking.setOnClickListener {
-            // Once your teammate creates StepTrackerActivity, replace with:
-            // startActivity(Intent(this, StepTrackerActivity::class.java))
-            Toast.makeText(this, R.string.module_steps_toast, Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, StepTrackerActivity::class.java).apply {
+                putExtra(EXTRA_USER_ID, userId)
+            }
+            startActivity(intent)
         }
 
-        // Workout Tracking Module (Teammate's section)
+        // Workout Tracking Module (Lewi's section)
         binding.cardWorkoutTracking.setOnClickListener {
-            // Once your teammate creates WorkoutTrackerActivity, replace with:
-            // startActivity(Intent(this, WorkoutTrackerActivity::class.java))
-            Toast.makeText(this, R.string.module_workout_toast, Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, WorkoutTrackerActivity::class.java).apply {
+                putExtra(WorkoutTrackerActivity.EXTRA_USER_ID, userId)
+            }
+            startActivity(intent)
         }
 
         // Meal & Nutrition Tracking Module (Teammate's section)
