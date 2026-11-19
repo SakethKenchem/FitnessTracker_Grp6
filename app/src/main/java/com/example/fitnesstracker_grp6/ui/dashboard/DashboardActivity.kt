@@ -17,6 +17,7 @@ import com.example.fitnesstracker_grp6.R
 import com.example.fitnesstracker_grp6.databinding.ActivityDashboardBinding
 import com.example.fitnesstracker_grp6.databinding.DialogBmiCalculatorBinding
 import com.example.fitnesstracker_grp6.ui.account.AccountActivity
+import com.example.fitnesstracker_grp6.ui.meal.MealListActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -76,10 +77,9 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         // Meal Tracking Module (Teammate's section)
+        // Meal Tracking Module
         binding.btnOpenMeal.setOnClickListener {
-            // Once your teammate creates MealTrackerActivity, replace with:
-            // startActivity(Intent(this, MealTrackerActivity::class.java))
-            Toast.makeText(this, R.string.module_meal_toast, Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, MealListActivity::class.java))
         }
     }
 

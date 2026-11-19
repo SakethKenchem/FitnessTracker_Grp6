@@ -27,6 +27,14 @@
             android:name=".ui.dashboard.DashboardActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ui.meal.MealListActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.meal.MealEditActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
