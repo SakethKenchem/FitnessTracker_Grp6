@@ -9,8 +9,8 @@ data class DashboardUiState(
     val userId: Long = 0,
     val username: String = "",
     val email: String = "",
-    val waterMl: Int = 1250,
-    val waterGoalMl: Int = 2500
+    val checkInsDone: Int = 1,
+    val checkInsTotal: Int = 3
 )
 
 class DashboardViewModel : ViewModel() {
@@ -24,11 +24,5 @@ class DashboardViewModel : ViewModel() {
             username = username,
             email = email
         )
-    }
-
-    fun addWater(amountMl: Int = 250) {
-        val current = _uiState.value.waterMl
-        val updated = current + amountMl
-        _uiState.value = _uiState.value.copy(waterMl = updated)
     }
 }

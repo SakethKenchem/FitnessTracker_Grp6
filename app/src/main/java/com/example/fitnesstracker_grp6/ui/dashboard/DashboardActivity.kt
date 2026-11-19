@@ -5,25 +5,15 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.isVisible
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.example.fitnesstracker_grp6.R
 import com.example.fitnesstracker_grp6.databinding.ActivityDashboardBinding
-import com.example.fitnesstracker_grp6.databinding.DialogBmiCalculatorBinding
 import com.example.fitnesstracker_grp6.ui.account.AccountActivity
 import com.example.fitnesstracker_grp6.ui.meal.MealListActivity
 import com.example.fitnesstracker_grp6.ui.workout.WorkoutTrackerActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -39,7 +29,8 @@ class DashboardActivity : AppCompatActivity() {
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
             val padding = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            view.setPadding(padding.left, padding.top, padding.right, padding.bottom)
+            view.setPadding(padding.left, padding.top, padding.right, 0)
+            binding.bottomNavBar.setPadding(0, 0, 0, padding.bottom)
             insets
         }
 
@@ -49,30 +40,43 @@ class DashboardActivity : AppCompatActivity() {
 
         viewModel.initUser(userId, username, email)
 
-        setupUI(username, email)
+        setupUI(username)
         setupModuleNavigation()
-        setupTools()
-        observeState()
+        setupBottomNav()
     }
 
-    private fun setupUI(username: String, email: String) {
-        val dateFormat = SimpleDateFormat("EEEE, MMM d", Locale.getDefault())
-        binding.dateText.text = dateFormat.format(Date())
-        binding.greetingText.text = getString(R.string.dashboard_greeting, username)
-        binding.userEmailText.text = email.ifEmpty { "Signed in user" }
-        binding.avatarInitialText.text = username.firstOrNull()?.uppercase() ?: "A"
+    private fun setupUI(username: String) {
+        val initials = username.trim().split(" ")
+            .mapNotNull { it.firstOrNull()?.uppercase() }
+            .take(2)
+            .joinToString("")
+            .ifEmpty { "AS" }
+        binding.avatarInitialText.text = initials
+
+        binding.searchButton.setOnClickListener {
+            Toast.makeText(this, "Search fitness programs", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.calendarButton.setOnClickListener {
+            Toast.makeText(this, "Activity schedule", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.signOutButton.setOnClickListener {
+            showSignOutDialog()
+        }
     }
 
     private fun setupModuleNavigation() {
-        // Step Tracking Module (Teammate's section)
-        binding.btnOpenSteps.setOnClickListener {
-            // Once your teammate creates StepTrackerActivity, replace with:
-            // startActivity(Intent(this, StepTrackerActivity::class.java))
-            Toast.makeText(this, R.string.module_steps_toast, Toast.LENGTH_SHORT).show()
+        // Step Tracking Module (Saketh's section)
+        binding.cardStepTracking.setOnClickListener {
+            val intent = Intent(this, StepTrackerActivity::class.java).apply {
+                putExtra(EXTRA_USER_ID, userId)
+            }
+            startActivity(intent)
         }
 
-        // Workout Tracking Module
-        binding.btnOpenWorkout.setOnClickListener {
+        // Workout Tracking Module (Lewi's section)
+        binding.cardWorkoutTracking.setOnClickListener {
             val intent = Intent(this, WorkoutTrackerActivity::class.java).apply {
                 putExtra(WorkoutTrackerActivity.EXTRA_USER_ID, userId)
             }
@@ -83,82 +87,27 @@ class DashboardActivity : AppCompatActivity() {
         // Meal Tracking Module
         binding.btnOpenMeal.setOnClickListener {
             startActivity(Intent(this, MealListActivity::class.java))
+        // Meal & Nutrition Tracking Module (Teammate's section)
+        binding.cardMealTracking.setOnClickListener {
+            // Once your teammate creates MealTrackerActivity, replace with:
+            // startActivity(Intent(this, MealTrackerActivity::class.java))
+            Toast.makeText(this, R.string.module_meal_toast, Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun setupTools() {
-        binding.addWaterButton.setOnClickListener {
-            viewModel.addWater(250)
-            Toast.makeText(this, R.string.dashboard_water_added, Toast.LENGTH_SHORT).show()
+    private fun setupBottomNav() {
+        binding.navHome.setOnClickListener {
+            // Currently on Home
         }
-
-        binding.bmiCard.setOnClickListener {
-            showBmiDialog()
+        binding.navExplore.setOnClickListener {
+            Toast.makeText(this, "Explore all fitness categories", Toast.LENGTH_SHORT).show()
         }
-
-        binding.signOutButton.setOnClickListener {
+        binding.navActivity.setOnClickListener {
+            Toast.makeText(this, "Activity check-ins and history", Toast.LENGTH_SHORT).show()
+        }
+        binding.navMore.setOnClickListener {
             showSignOutDialog()
         }
-    }
-
-    private fun observeState() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect { state ->
-                    render(state)
-                }
-            }
-        }
-    }
-
-    private fun render(state: DashboardUiState) = with(binding) {
-        val waterProgress = ((state.waterMl.toFloat() / state.waterGoalMl) * 100).toInt().coerceAtMost(100)
-        waterValueText.text = "${state.waterMl} / ${state.waterGoalMl} ml"
-        waterProgressBar.progress = waterProgress
-    }
-
-    private fun showBmiDialog() {
-        val dialogBinding = DialogBmiCalculatorBinding.inflate(layoutInflater)
-
-        val dialog = MaterialAlertDialogBuilder(this)
-            .setView(dialogBinding.root)
-            .setPositiveButton(R.string.btn_calculate_bmi, null)
-            .setNegativeButton(R.string.dashboard_cancel, null)
-            .create()
-
-        dialog.setOnShowListener {
-            val calcBtn = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-            calcBtn.setOnClickListener {
-                val heightStr = dialogBinding.heightInput.text.toString().trim()
-                val weightStr = dialogBinding.weightInput.text.toString().trim()
-
-                val heightCm = heightStr.toDoubleOrNull()
-                val weightKg = weightStr.toDoubleOrNull()
-
-                if (heightCm == null || heightCm <= 0 || weightKg == null || weightKg <= 0) {
-                    Toast.makeText(this, "Please enter valid height and weight", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-
-                val heightM = heightCm / 100.0
-                val bmi = weightKg / (heightM * heightM)
-
-                val category = when {
-                    bmi < 18.5 -> getString(R.string.bmi_underweight)
-                    bmi < 25.0 -> getString(R.string.bmi_normal)
-                    bmi < 30.0 -> getString(R.string.bmi_overweight)
-                    else -> getString(R.string.bmi_obese)
-                }
-
-                dialogBinding.bmiScoreText.text = String.format(Locale.getDefault(), "%.1f", bmi)
-                dialogBinding.bmiCategoryText.text = category
-                dialogBinding.bmiResultCard.isVisible = true
-
-                binding.bmiValuePreview.text = String.format(Locale.getDefault(), "%.1f (%s)", bmi, category)
-            }
-        }
-
-        dialog.show()
     }
 
     private fun showSignOutDialog() {
