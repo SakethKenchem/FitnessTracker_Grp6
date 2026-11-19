@@ -2,16 +2,17 @@ package com.example.fitnesstracker_grp6.ui.dashboard
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.fitnesstracker_grp6.R
+import com.example.fitnesstracker_grp6.data.repository.DailySteps
 import com.example.fitnesstracker_grp6.databinding.ActivityDashboardBinding
 import com.example.fitnesstracker_grp6.ui.account.AccountActivity
 import com.example.fitnesstracker_grp6.ui.meal.MealListActivity
+import com.example.fitnesstracker_grp6.ui.steps.StepTrackerActivity
 import com.example.fitnesstracker_grp6.ui.workout.WorkoutTrackerActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -45,6 +46,18 @@ class DashboardActivity : AppCompatActivity() {
         setupBottomNav()
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateStepsDisplay()
+    }
+
+    private fun updateStepsDisplay() {
+        if (userId != -1L) {
+            val totalSteps = DailySteps(this, userId).total()
+            binding.tvStepCount.text = getString(R.string.module_steps_total, totalSteps)
+        }
+    }
+
     private fun setupUI(username: String) {
         val initials = username.trim().split(" ")
             .mapNotNull { it.firstOrNull()?.uppercase() }
@@ -52,14 +65,7 @@ class DashboardActivity : AppCompatActivity() {
             .joinToString("")
             .ifEmpty { "AS" }
         binding.avatarInitialText.text = initials
-
-        binding.searchButton.setOnClickListener {
-            Toast.makeText(this, "Search fitness programs", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.calendarButton.setOnClickListener {
-            Toast.makeText(this, "Activity schedule", Toast.LENGTH_SHORT).show()
-        }
+        binding.greetingTitleText.text = getString(R.string.auth_welcome, username)
 
         binding.signOutButton.setOnClickListener {
             showSignOutDialog()
@@ -67,43 +73,37 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun setupModuleNavigation() {
-        // Step Tracking Module (Saketh's section)
-        binding.cardStepTracking.setOnClickListener {
+        // Step Tracking Module
+        val openSteps = {
             val intent = Intent(this, StepTrackerActivity::class.java).apply {
                 putExtra(EXTRA_USER_ID, userId)
             }
             startActivity(intent)
         }
+        binding.cardStepTracking.setOnClickListener { openSteps() }
+        binding.btnOpenSteps.setOnClickListener { openSteps() }
 
-        // Workout Tracking Module (Lewi's section)
-        binding.cardWorkoutTracking.setOnClickListener {
+        // Workout Tracking Module
+        val openWorkouts = {
             val intent = Intent(this, WorkoutTrackerActivity::class.java).apply {
                 putExtra(WorkoutTrackerActivity.EXTRA_USER_ID, userId)
             }
             startActivity(intent)
         }
+        binding.cardWorkoutTracking.setOnClickListener { openWorkouts() }
+        binding.btnOpenWorkouts.setOnClickListener { openWorkouts() }
 
-        // Meal Tracking Module (Teammate's section)
         // Meal Tracking Module
-        binding.btnOpenMeal.setOnClickListener {
+        val openMeals = {
             startActivity(Intent(this, MealListActivity::class.java))
-        // Meal & Nutrition Tracking Module (Teammate's section)
-        binding.cardMealTracking.setOnClickListener {
-            // Once your teammate creates MealTrackerActivity, replace with:
-            // startActivity(Intent(this, MealTrackerActivity::class.java))
-            Toast.makeText(this, R.string.module_meal_toast, Toast.LENGTH_SHORT).show()
         }
+        binding.cardMealTracking.setOnClickListener { openMeals() }
+        binding.btnOpenMeals.setOnClickListener { openMeals() }
     }
 
     private fun setupBottomNav() {
         binding.navHome.setOnClickListener {
             // Currently on Home
-        }
-        binding.navExplore.setOnClickListener {
-            Toast.makeText(this, "Explore all fitness categories", Toast.LENGTH_SHORT).show()
-        }
-        binding.navActivity.setOnClickListener {
-            Toast.makeText(this, "Activity check-ins and history", Toast.LENGTH_SHORT).show()
         }
         binding.navMore.setOnClickListener {
             showSignOutDialog()

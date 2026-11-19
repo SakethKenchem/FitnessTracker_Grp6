@@ -23,6 +23,17 @@
     <string name="dashboard_headline">What will you\naccomplish today?</string>
     <string name="dashboard_badge_on_demand">ON-DEMAND</string>
     <string name="dashboard_btn_sign_out">Sign Out</string>
+    <string name="dashboard_subtitle">Welcome to your fitness dashboard</string>
+    <string name="dashboard_section_trackers">YOUR TRACKERS</string>
+    <string name="dashboard_steps_title">Step Tracker</string>
+    <string name="dashboard_steps_desc">Track daily steps, goals &amp; progress</string>
+    <string name="dashboard_btn_steps">Open Step Tracker</string>
+    <string name="dashboard_workout_title">Workout Tracker</string>
+    <string name="dashboard_workout_desc">Log sessions, duration &amp; calories burned</string>
+    <string name="dashboard_btn_workout">Open Workout Tracker</string>
+    <string name="dashboard_meal_title">Meal Tracker</string>
+    <string name="dashboard_meal_desc">Log meals &amp; monitor daily nutrition</string>
+    <string name="dashboard_btn_meal">Open Meal Tracker</string>
 
     <!-- Check-In Goal Card 1 -->
     <string name="goal_check_in_title">CHECK-IN GOAL</string>
@@ -73,6 +84,7 @@
     <string name="workout_stat_calories">Calories</string>
     <string name="workout_duration_min">%1$d mins</string>
     <string name="workout_calories_kcal">%1$d kcal</string>
+    <string name="workout_stat_details">%1$d mins • %2$d kcal</string>
     <string name="workout_history_title">Workout History</string>
     <string name="workout_empty_state">No workouts logged yet!\nTap the + button to add your first workout.</string>
     <string name="workout_add_title">Log New Workout</string>

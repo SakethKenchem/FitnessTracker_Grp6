@@ -10,6 +10,7 @@ import com.example.fitnesstracker_grp6.data.repository.WorkoutRepository
 class FitnessTrackerApplication : Application() {
     private val database by lazy {
         Room.databaseBuilder(this, FitnessDatabase::class.java, "fitness.db")
+            .addMigrations(FitnessDatabase.MIGRATION_1_3, FitnessDatabase.MIGRATION_2_3)
             .fallbackToDestructiveMigration(true)
             .fallbackToDestructiveMigrationOnDowngrade(true)
             .build()
